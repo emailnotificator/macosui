@@ -1,0 +1,4 @@
+module em_core [system][extern_c] {
+    header "core.h"
+    export *
+}
