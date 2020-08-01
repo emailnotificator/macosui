@@ -29,3 +29,11 @@ struct MailBox: Decodable, Encodable {
     let login: String
     let password: String
 }
+
+struct Email: Decodable {
+    let id: Int
+    let subject: String
+    let body: String
+    let mail_box: String
+    let from: String
+}

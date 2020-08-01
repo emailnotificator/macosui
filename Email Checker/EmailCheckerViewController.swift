@@ -32,16 +32,16 @@ class EmailCheckerViewController: NSViewController {
         if IsSetup() == 0 {
             setData()
         } else {
-            let t = DispatchSource.makeTimerSource()
-            t.schedule(deadline: .now(), repeating: 1)
-            t.resume()
-            t.setEventHandler(handler: { [weak self] in
+            let timer = DispatchSource.makeTimerSource()
+            timer.schedule(deadline: .now(), repeating: 1)
+            timer.resume()
+            timer.setEventHandler(handler: { [weak self] in
                 if IsSetup() == 0 {
                     DispatchQueue.main.async {
                         self?.setData()
                     }
 
-                    t.suspend()
+                    timer.suspend()
                 }
             })
         }
@@ -51,8 +51,6 @@ class EmailCheckerViewController: NSViewController {
         super.viewWillAppear()
 
         let unreadCount = GetUnreadCount()
-        let lastUnread = String(cString: GetUnread())
-        print(lastUnread)
 
         unreadCountField.stringValue = "\(unreadCount)"
 
@@ -106,7 +104,7 @@ class EmailCheckerViewController: NSViewController {
         let decoder = JSONDecoder()
         let unreadCount = GetUnreadCount()
         let lastUnreadJson = String(cString: GetUnread())
-        let lastUnread = try? decoder.decode([String :  [String]].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
+        let lastUnread = try? decoder.decode([String :  [Email]].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
         let lastUpdate = String(cString: GetLastUpdate())
 
         unreadWait.stopAnimation(nil)
@@ -115,7 +113,7 @@ class EmailCheckerViewController: NSViewController {
 
         var boxes = ""
 
-        for (box, mails) in lastUnread ?? [String :  [String]]() {
+        for (box, mails) in lastUnread ?? [String :  [Email]]() {
             boxes += "\(box) - \(mails.count)" + "\n"
         }
 
@@ -130,11 +128,11 @@ class EmailCheckerViewController: NSViewController {
 
         let unreadCount = GetUnreadCount()
         let lastUnreadJson = String(cString: GetUnread())
-        let lastUnread = try? decoder.decode([String :  [String]].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
+        let lastUnread = try? decoder.decode([String :  [Email]].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
         let lastUpdate = String(cString: GetLastUpdate())
         var boxes = ""
 
-        for (box, mails) in lastUnread ?? [String :  [String]]() {
+        for (box, mails) in lastUnread ?? [String :  [Email]]() {
             boxes += "\(box) - \(mails.count)" + "\n"
         }
 

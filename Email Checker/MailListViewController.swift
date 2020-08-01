@@ -10,28 +10,72 @@ import Cocoa
 
 class MailListViewController: NSViewController {
 
-    @IBOutlet var textView: NSTextView!
+    @IBOutlet weak var mailTableView: NSTableView!
+
+    private var unreads = [Email]()
+    private var deleteCallback: (() -> Void)? = nil
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        mailTableView.delegate = self
+        mailTableView.dataSource = self
+
+        deleteCallback = { [weak self] in
+            let unreadsJson = String(cString: GetUnread())
+
+            if let data = try? JSONDecoder().decode([String : [Email]].self, from: unreadsJson.data(using: .utf8) ?? Data()) {
+                for (_, subjects) in data {
+                    for subj in subjects {
+                        self?.unreads.append(subj)
+                    }
+                }
+            }
+
+            self?.mailTableView.reloadData()
+        }
     }
 
     override func viewWillAppear() {
         super.viewWillAppear()
 
-        textView.string = String(cString: GetUnreadList())
+        let unreadsJson = String(cString: GetUnread())
+
+        if let data = try? JSONDecoder().decode([String : [Email]].self, from: unreadsJson.data(using: .utf8) ?? Data()) {
+            for (_, subjects) in data {
+                for subj in subjects {
+                    unreads.append(subj)
+                }
+            }
+        }
+
+        mailTableView.reloadData()
     }
-    
-    @IBAction func openAppAction(_ sender: Any) {
+
+}
+
+extension MailListViewController: NSTableViewDelegate {
+
+}
+
+extension MailListViewController: NSTableViewDataSource {
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return unreads.count
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard
-            let config = try? JSONDecoder().decode(Config.self, from: String(cString: GetConfig()).data(using: .utf8) ?? Data()),
-            let mail = config.boxes.first?.login
+            let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "mailCell"), owner: self) as? EmailTablelCell
         else {
-            return
+            return nil
         }
-        if let url = URL(string: "mailto:\(mail)") {
-            NSWorkspace.shared.open(url)
-        }
+        cell.email = unreads[row]
+        cell.deleteCallback = deleteCallback
+        cell.initCell()
+
+        return cell
     }
+
 }

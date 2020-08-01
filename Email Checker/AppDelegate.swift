@@ -114,7 +114,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if cnt != 0 {
                 let notification = NSUserNotification()
                 notification.title = "You have \(cnt) unread email(s)"
-//                notification.subtitle = "Subtitle of notification"
                 notification.deliveryDate = Date(timeIntervalSinceNow: 1)
 
                 NSUserNotificationCenter.default.scheduleNotification(notification)

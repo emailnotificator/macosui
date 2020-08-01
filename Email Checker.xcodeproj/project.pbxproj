@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE15D24D24D329A30086D40C /* EmailTablelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15D24C24D329A30086D40C /* EmailTablelCell.swift */; };
 		CE2BFE7024ABC66D0048CE9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2BFE6F24ABC66D0048CE9A /* AppDelegate.swift */; };
 		CE2BFE7224ABC66D0048CE9A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2BFE7124ABC66D0048CE9A /* ViewController.swift */; };
 		CE2BFE7424ABC66E0048CE9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2BFE7324ABC66E0048CE9A /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE15D24C24D329A30086D40C /* EmailTablelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTablelCell.swift; sourceTree = "<group>"; };
 		CE2BFE6C24ABC66D0048CE9A /* Email Checker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Email Checker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE2BFE6F24ABC66D0048CE9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE2BFE7124ABC66D0048CE9A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				CE6744DF24C474E300023CD5 /* SettingsViewControlller.swift */,
 				CE6E65D924CC5CB4007521A4 /* AddBoxViewController.swift */,
 				CEB1162F24CDCB5100CB4803 /* MailListViewController.swift */,
+				CE15D24C24D329A30086D40C /* EmailTablelCell.swift */,
 			);
 			path = "Email Checker";
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				CE2BFE7024ABC66D0048CE9A /* AppDelegate.swift in Sources */,
 				CE6E65DA24CC5CB4007521A4 /* AddBoxViewController.swift in Sources */,
 				CE2BFE8024ACFC640048CE9A /* EmailCheckerViewController.swift in Sources */,
+				CE15D24D24D329A30086D40C /* EmailTablelCell.swift in Sources */,
 				CE6744E024C474E300023CD5 /* SettingsViewControlller.swift in Sources */,
 				CEB1163024CDCB5100CB4803 /* MailListViewController.swift in Sources */,
 				CEB1162E24CD94C700CB4803 /* String+extension.swift in Sources */,
