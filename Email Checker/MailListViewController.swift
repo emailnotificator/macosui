@@ -13,7 +13,7 @@ class MailListViewController: NSViewController {
     @IBOutlet weak var mailTableView: NSTableView!
 
     private var unreads = [Email]()
-    private var deleteCallback: (() -> Void)? = nil
+    private var deleteCallback: ((Int) -> Void)? = nil
 
 
     override func viewDidLoad() {
@@ -22,18 +22,25 @@ class MailListViewController: NSViewController {
         mailTableView.delegate = self
         mailTableView.dataSource = self
 
-        deleteCallback = { [weak self] in
-            let unreadsJson = String(cString: GetUnread())
+        deleteCallback = { [weak self] (id: Int) in
+//            let unreadsJson = String(cString: GetUnread())
+//
+//            if let data = try? JSONDecoder().decode([Email].self, from: unreadsJson.data(using: .utf8) ?? Data()) {
+//                self?.unreads.append(contentsOf: data)
+//            }
 
-            if let data = try? JSONDecoder().decode([String : [Email]].self, from: unreadsJson.data(using: .utf8) ?? Data()) {
-                for (_, subjects) in data {
-                    for subj in subjects {
-                        self?.unreads.append(subj)
+            for (idx, data) in self?.unreads.enumerated() ?? [Email]().enumerated() {
+                if data.id == id {
+                    self?.unreads.remove(at: idx)
+
+                    DispatchQueue.main.async {
+                        self?.mailTableView.reloadData()
                     }
+
+                    break
                 }
             }
 
-            self?.mailTableView.reloadData()
         }
     }
 
@@ -42,12 +49,8 @@ class MailListViewController: NSViewController {
 
         let unreadsJson = String(cString: GetUnread())
 
-        if let data = try? JSONDecoder().decode([String : [Email]].self, from: unreadsJson.data(using: .utf8) ?? Data()) {
-            for (_, subjects) in data {
-                for subj in subjects {
-                    unreads.append(subj)
-                }
-            }
+        if let data = try? JSONDecoder().decode([Email].self, from: unreadsJson.data(using: .utf8) ?? Data()) {
+            unreads.append(contentsOf: data)
         }
 
         mailTableView.reloadData()

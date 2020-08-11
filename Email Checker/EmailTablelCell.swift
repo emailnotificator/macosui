@@ -16,7 +16,7 @@ class EmailTablelCell: NSTableCellView {
     @IBOutlet weak var deleteButton: NSButton!
 
     var email: Email? = nil
-    var deleteCallback: (() -> Void)? = nil
+    var deleteCallback: ((Int) -> Void)? = nil
 
 
     override func draw(_ dirtyRect: NSRect) {
@@ -34,10 +34,14 @@ class EmailTablelCell: NSTableCellView {
         deleteButton.isHidden = true
         deleteWaitIndicator.startAnimation(sender)
 
-        if let id = email?.id {
-            DeleteEmail(emailLabel.stringValue.toC(), Int64(id))
-            deleteCallback?()
+        guard let id = email?.id else {
+            return
         }
+        let login = emailLabel.stringValue
 
+        DispatchQueue.global(qos: .utility).async { [weak self] in
+            DeleteEmail(login.toC(), Int64(id))
+            self?.deleteCallback?(id)
+        }
     }
 }

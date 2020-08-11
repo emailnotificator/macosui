@@ -104,17 +104,24 @@ class EmailCheckerViewController: NSViewController {
         let decoder = JSONDecoder()
         let unreadCount = GetUnreadCount()
         let lastUnreadJson = String(cString: GetUnread())
-        let lastUnread = try? decoder.decode([String :  [Email]].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
+        let lastUnread = try? decoder.decode([Email].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
         let lastUpdate = String(cString: GetLastUpdate())
 
         unreadWait.stopAnimation(nil)
         mailListWait.stopAnimation(nil)
         lastCheckWait.stopAnimation(nil)
 
+        var boxCount = [String: Int]()
         var boxes = ""
 
-        for (box, mails) in lastUnread ?? [String :  [Email]]() {
-            boxes += "\(box) - \(mails.count)" + "\n"
+        for email in lastUnread ?? [Email]() {
+            if boxCount[email.mail_box] == nil {
+                boxCount[email.mail_box] = 0
+            }
+            boxCount[email.mail_box]! += 1
+        }
+        for (key, value) in boxCount {
+            boxes += "\(key) - \(value)" + "\n"
         }
 
         mailListField.stringValue = boxes
@@ -128,12 +135,19 @@ class EmailCheckerViewController: NSViewController {
 
         let unreadCount = GetUnreadCount()
         let lastUnreadJson = String(cString: GetUnread())
-        let lastUnread = try? decoder.decode([String :  [Email]].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
+        let lastUnread = try? decoder.decode([Email].self, from: lastUnreadJson.data(using: .utf8) ?? Data())
         let lastUpdate = String(cString: GetLastUpdate())
+        var boxCount = [String: Int]()
         var boxes = ""
 
-        for (box, mails) in lastUnread ?? [String :  [Email]]() {
-            boxes += "\(box) - \(mails.count)" + "\n"
+        for email in lastUnread ?? [Email]() {
+            if boxCount[email.mail_box] == nil {
+                boxCount[email.mail_box] = 0
+            }
+            boxCount[email.mail_box]! += 1
+        }
+        for (key, value) in boxCount {
+            boxes += "\(key) - \(value)" + "\n"
         }
 
         mailListField.stringValue = boxes
