@@ -89,6 +89,8 @@ extern void Shutdown();
 
 extern void DeleteEmail(char* p0, GoInt p1);
 
+extern void SetSeen(char* p0, GoInt p1);
+
 #ifdef __cplusplus
 }
 #endif

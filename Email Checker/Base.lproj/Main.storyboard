@@ -1124,23 +1124,46 @@
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vfb-cT-yZT">
-                                                                    <rect key="frame" x="406" y="44" width="40" height="32"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarDeleteTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9sH-cn-8kk">
-                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <action selector="deleteAction:" target="w3T-lC-ZTo" id="bqb-S2-7JW"/>
-                                                                    </connections>
-                                                                </button>
                                                                 <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="YCL-mi-rGR">
-                                                                    <rect key="frame" x="418" y="54" width="16" height="16"/>
+                                                                    <rect key="frame" x="404" y="51" width="16" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 </progressIndicator>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GC2-7x-dR9">
+                                                                    <rect key="frame" x="367" y="51" width="73" height="21"/>
+                                                                    <subviews>
+                                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b8T-ch-klU">
+                                                                            <rect key="frame" x="-6" y="-7" width="48" height="32"/>
+                                                                            <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSMenuOnStateTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gM8-2G-fd7">
+                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="seenAction:" target="w3T-lC-ZTo" id="FzN-A7-Gec"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vfb-cT-yZT">
+                                                                            <rect key="frame" x="35" y="-7" width="44" height="32"/>
+                                                                            <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarDeleteTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9sH-cn-8kk">
+                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="deleteAction:" target="w3T-lC-ZTo" id="bqb-S2-7JW"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
                                                             </subviews>
                                                             <connections>
+                                                                <outlet property="buttonStackView" destination="GC2-7x-dR9" id="P8V-QN-NkU"/>
                                                                 <outlet property="deleteButton" destination="Vfb-cT-yZT" id="lTf-0s-jhB"/>
                                                                 <outlet property="deleteWaitIndicator" destination="YCL-mi-rGR" id="yZO-Dx-CQi"/>
                                                                 <outlet property="emailLabel" destination="xq1-Ec-2lZ" id="vQK-Ds-MqX"/>
@@ -1296,6 +1319,7 @@
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSAdvanced" width="32" height="32"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
+        <image name="NSMenuOnStateTemplate" width="12" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
